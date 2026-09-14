@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: http://127.0.0.1:8787 http://127.0.0.1:8788; media-src 'self' http://127.0.0.1:8787 http://127.0.0.1:8788">
+  <title>Camera Stream</title>
+  <link rel="stylesheet" href="styles/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Cameras</div>
+    <nav id="view-nav" class="pill-nav">
+      <button type="button" data-view="live" class="active">Live</button>
+      <button type="button" data-view="clip">Clip</button>
+      <button type="button" data-view="ai">AI</button>
+      <button type="button" data-view="faces">Faces</button>
+      <button type="button" data-view="groups">Groups</button>
+    </nav>
+  </header>
+
+  <section id="view-live" class="view active">
+    <div class="row">
+      <aside class="card side-card">
+        <h2>Add camera</h2>
+        <p class="hint">Saved cameras appear as live tiles.</p>
+        <form id="add-camera-form">
+          <label>Custom name
+            <input name="name" type="text" placeholder="Front gate" required>
+          </label>
+          <label>IP address
+            <input name="ip" type="text" placeholder="192.168.1.64" required>
+          </label>
+          <label>Username
+            <input name="username" type="text" required>
+          </label>
+          <label>Password
+            <input name="password" type="password" required>
+          </label>
+          <button type="submit" class="btn-primary">Add camera</button>
+        </form>
+      </aside>
+      <div class="live-wrap">
+        <div class="section-head">
+          <h1>Live</h1>
+          <p id="status" class="status-line">Ready</p>
+        </div>
+        <div id="live-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-clip" class="view">
+    <div class="card clip-panel">
+      <label>Camera
+        <select id="clip-camera"></select>
+      </label>
+      <div class="clip-times">
+        <label>Start
+          <input id="clip-start" type="datetime-local" step="1">
+        </label>
+        <label>End
+          <input id="clip-end" type="datetime-local" step="1">
+        </label>
+      </div>
+      <div class="clip-quick">
+        <button type="button" id="clip-last-5">Last 5 min</button>
+        <button type="button" id="clip-last-15">Last 15 min</button>
+      </div>
+      <div class="clip-actions">
+        <button type="button" id="clip-play">Play clip</button>
+        <button type="button" id="clip-save">Save clip</button>
+      </div>
+    </div>
+    <div class="clip-stage">
+      <div class="clip-stage-top">
+        <p id="clip-label">Camera view</p>
+        <p id="clip-status" class="status-line"></p>
+      </div>
+      <img id="clip-live" alt="Clip playback">
+      <div class="clip-stage-bar">
+        <span>CLIP</span>
+        <div class="clip-transport">
+          <button type="button" id="clip-back">-5s</button>
+          <button type="button" id="clip-stop">Stop</button>
+          <button type="button" id="clip-replay">Replay</button>
+          <button type="button" id="clip-fwd">+5s</button>
+          <button type="button" id="clip-full">Fullscreen</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-ai" class="view">
+    <div class="row">
+      <aside class="card side-card">
+        <h2>Models</h2>
+        <div id="ai-models"></div>
+        <div id="panel-lineCrossing" hidden>
+          <h2>Line crossing</h2>
+          <label>Camera
+            <select id="lc-camera"></select>
+          </label>
+          <div class="ai-dirs">
+            <label><input type="radio" name="lc-dir" value="a-to-b"> A → B</label>
+            <label><input type="radio" name="lc-dir" value="b-to-a"> B → A</label>
+            <label><input type="radio" name="lc-dir" value="both" checked> A ↔ B</label>
+          </div>
+          <p id="lc-draw-hint" class="hint">Click on the video to set point A, then point B.</p>
+          <button type="button" id="lc-add-line" class="btn-primary">Add line</button>
+          <button type="button" id="lc-clear-draft" class="btn-ghost">Clear draft</button>
+          <div id="lc-lines"></div>
+        </div>
+        <div id="panel-intrusion" hidden>
+          <h2>Intrusion</h2>
+          <p id="intrusion-status" class="hint"></p>
+        </div>
+        <div id="panel-loitering" hidden>
+          <h2>Loitering</h2>
+          <p id="loitering-status" class="hint"></p>
+        </div>
+      </aside>
+      <div class="live-wrap">
+        <div class="ai-draw-box">
+          <img id="lc-preview" alt="Camera preview for drawing">
+          <canvas id="lc-canvas"></canvas>
+        </div>
+        <h2>Events</h2>
+        <div id="lc-events"></div>
+        <div id="lc-pager" class="ai-pager" hidden>
+          <button type="button" id="lc-page-prev">Prev</button>
+          <span id="lc-page-label">Page 1</span>
+          <button type="button" id="lc-page-next">Next</button>
+        </div>
+        <p id="lc-player-label" class="status-line">Click a thumbnail to play from the SD card.</p>
+        <img id="lc-player" alt="SD card playback">
+      </div>
+    </div>
+  </section>
+  <section id="view-faces" class="view">
+    <div class="card placeholder"><h1>Faces</h1><p>Faces will go here.</p></div>
+  </section>
+  <section id="view-groups" class="view">
+    <div class="card placeholder"><h1>Groups</h1><p>Groups will go here.</p></div>
+  </section>
+
+  <script src="app.js"></script>
+  <script src="clip.js"></script>
+  <script src="ai/hub.js"></script>
+  <script src="ai/line-crossing.js"></script>
+  <script src="ai/intrusion.js"></script>
+  <script src="ai/loitering.js"></script>
+</body>
+</html>

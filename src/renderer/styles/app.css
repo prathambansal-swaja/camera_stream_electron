@@ -1,0 +1,236 @@
+/* Dark shell to match the top pill nav and Clip mockup. */
+:root {
+  --bg: #111113;
+  --card: #1c1c1f;
+  --line: #2c2c30;
+  --text: #f4f4f5;
+  --muted: #9a9aa3;
+  --accent: #f2c48a;
+  --accent-ink: #1a1208;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px 24px 28px;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: radial-gradient(1200px 500px at 80% -10%, #2a2218 0%, var(--bg) 50%);
+  color: var(--text);
+}
+
+h1, h2 { margin: 0 0 8px; font-weight: 600; }
+h1 { font-size: 22px; }
+h2 { font-size: 16px; }
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.brand {
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.pill-nav {
+  display: flex;
+  gap: 4px;
+  padding: 5px;
+  background: #0d0d0f;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.pill-nav button {
+  border: 0;
+  background: transparent;
+  color: #ececec;
+  padding: 9px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.pill-nav button.active {
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.view { display: none; }
+.view.active { display: block; }
+
+.row { display: flex; gap: 20px; align-items: flex-start; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.side-card { width: 260px; flex-shrink: 0; }
+.hint, .status-line { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
+
+form label, .clip-panel label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+input, select {
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #121214;
+  color: var(--text);
+  font: inherit;
+}
+
+input:focus, select:focus {
+  outline: 2px solid #f2c48a66;
+  border-color: var(--accent);
+}
+
+.btn-primary, .clip-actions button, .clip-quick button, #clip-full {
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.btn-primary {
+  width: 100%;
+  margin-top: 6px;
+  padding: 11px 16px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 650;
+}
+
+.live-wrap { flex: 1; min-width: 0; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.section-head .status-line { margin: 0; }
+
+#live-grid { display: flex; flex-wrap: wrap; gap: 16px; }
+#live-grid:empty::after {
+  content: "No cameras yet. Add one on the left.";
+  color: var(--muted);
+}
+
+.tile {
+  width: min(380px, 100%);
+  background: #0d0d0f;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.tile-name, .tile-ip, .tile-status { padding: 0 12px; }
+.tile-name { padding-top: 10px; font-weight: 650; }
+.tile-ip { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.tile img { width: 100%; min-height: 210px; background: #000; display: block; }
+.tile-status { font-size: 12px; color: var(--muted); padding: 8px 12px 10px; }
+
+.clip-times { display: flex; gap: 14px; flex-wrap: wrap; }
+.clip-times label { flex: 1; min-width: 220px; }
+.clip-quick, .clip-actions, .clip-stage-bar { display: flex; gap: 10px; margin-top: 12px; }
+.clip-quick button, .clip-transport button {
+  background: #2a2a2e;
+  color: var(--text);
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+}
+.clip-actions button { flex: 1; padding: 12px; font-weight: 650; }
+#clip-play { background: var(--accent); color: var(--accent-ink); }
+#clip-save { background: #fff; color: #111; }
+
+.clip-stage {
+  margin-top: 14px;
+  background: #000;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.clip-stage-top, .clip-stage-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  margin: 0;
+  background: #0d0d0f;
+}
+
+.clip-stage-top p { margin: 0; }
+#clip-live { width: 100%; min-height: 360px; background: #000; display: block; }
+.clip-stage-bar { margin: 0; color: var(--muted); font-size: 12px; }
+.clip-transport { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.placeholder { min-height: 240px; color: var(--muted); }
+.ai-model, .ai-dirs label, .ai-line-row { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.btn-ghost {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+.ai-draw-box {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  margin-bottom: 16px;
+  background: #000;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.ai-draw-box img,
+.ai-draw-box canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.ai-draw-box img { object-fit: contain; }
+.ai-draw-box canvas { z-index: 5; cursor: crosshair; }
+#lc-events { display: flex; flex-wrap: wrap; gap: 12px; margin: 10px 0 16px; }
+.ai-pager { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; }
+.ai-pager[hidden] { display: none; }
+.ai-pager button {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 14px;
+  background: #2a2a2e;
+  color: var(--text);
+  cursor: pointer;
+}
+.ai-pager button:disabled { opacity: 0.4; cursor: default; }
+.ai-event {
+  width: 160px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0d0d0f;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  overflow: hidden;
+}
+.ai-event img { width: 100%; height: 90px; object-fit: cover; background: #222; display: block; }
+.ai-event span { display: block; padding: 8px; font-size: 12px; white-space: pre-wrap; }
+#lc-player { width: 100%; min-height: 240px; background: #000; border-radius: 12px; }
